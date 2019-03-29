@@ -7,30 +7,12 @@ protected:
     int value;
     matrix *next;
 public:
+~matrix();
 void initialize ();
-void fillMatrix();
-void display ();
+bool fillMatrix(matrix*);
+void display (matrix*);
 void setNext(matrix*,matrix*);
+matrix* addElement(matrix*);
+int setSizeOfMatrix (matrix*);
 
 };
-void matrix::initialize(){
-    matrix* next=nullptr;
-}
-
-void matrix::fillMatrix(){
-    cout << "X:" << endl;
-    cin >> x;
-    cout << "Y:" << endl;
-    cin >> y;
-    cout << "value" << endl;
-    cin >> value;
-}
-void matrix::display(){
-    cout << "X=" << x << endl;
-    cout << "Y=" << y << endl;
-    cout << "Value = " << value << endl;
-}
-
-void matrix::setNext(matrix* mat,matrix* newMatrix){
-    newMatrix->next = mat;
-}
