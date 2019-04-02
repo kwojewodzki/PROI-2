@@ -2,76 +2,98 @@
 #include <stdlib.h>
 #include "class.hpp"
 
-bool matrix::fillMatrix(matrix* mat){
-    char agree;
-    cout << "X:" << endl;
-    cin >> x;
-    int iks = x;
-    cout << "Y:" << endl;
-    cin >> y;
-    int why = y;
-    while(mat!=NULL){
-        if(mat->x==iks&&mat->y==why){
-            cout << "Do you wanna overwrite? Y|N" << endl;
-            cin >> agree;
-            if(agree=='n'||agree == 'N'){
-                return 0;
-            }
-          //  break;
-        }mat=mat->next;
+int matrix::operator+(matrix* mat){
+    matrix* help = mat;
+    while(help!=NULL){
+        if(x == help->x && y == help->y){
+            value = value + help->value;
+        }
+        help= help->next;
     }
+     return value;
+}
+int matrix::operator-(matrix* mat){
+    matrix* help = mat;
+    while(help!=NULL){
+        if(x == help->x && y == help->y){
+            value = value - help->value;
+        }
+        help= help->next;
+    }
+     return value;
+}
+
+void matrix::fillMatrix(matrix* mat){
+    cout << "X:" << endl;
+    cin >> y;
+    cout << "Y:" << endl;
+    cin >> x;
     cout << "value" << endl;
     cin >> value;
-    return 1;
 }
 int matrix::setSizeOfMatrix(matrix* mat){
+    matrix* help = mat;
     int sizeOfMatrix = 0;
-    while(mat!=NULL){
-        if(sizeOfMatrix<=mat->x){
-            sizeOfMatrix = mat->x;
-        }if(sizeOfMatrix<=mat->y){
-            sizeOfMatrix = mat-> y;
+    while(help!=NULL){
+        if(sizeOfMatrix<=help->x){
+            sizeOfMatrix = help->x;
+        }if(sizeOfMatrix<=help->y){
+            sizeOfMatrix = help-> y;
             }
-        mat=mat->next;
+        help=help->next;
     }
     return sizeOfMatrix;
 }
 
 void matrix::display(matrix* mat){
-    matrix* help = new matrix;
+    matrix* help = mat;
+    int i,j;
     int sizeOfMatrix = setSizeOfMatrix(mat);
-    cout <<sizeOfMatrix<<endl;
-    for(int i=1 ;i<=sizeOfMatrix; ++i){
-        help=mat;
-        for(int j=1;j<=sizeOfMatrix; ++j){
-           // while (mat!=NULL){
-               if(i == help->x && j == help->y){
-                cout << help->value << " ";
-               }else{
-                    cout << "0 ";
-                    }
-               //help=help->next;
-
-            }
-        cout << endl;
+    int matrix [sizeOfMatrix] [sizeOfMatrix];
+    for ( i = 0; i < sizeOfMatrix; ++i){
+        for ( j = 0; j < sizeOfMatrix; ++j){
+            matrix[i][j] = 0;
+        }
+    }
+    while (help!=NULL){
+       matrix [help->x-1] [help->y-1] = help->value;
+       help = help -> next;
+    }
+    for( i=0; i<sizeOfMatrix; ++i){
+        for( j=0; j<sizeOfMatrix; ++j){
+            cout << matrix[i][j] << ' ';
+        }cout << endl;
     }
 }
-
 matrix* matrix::addElement(matrix* mat){
-    bool r;
     matrix* newMatrix = new matrix;
-    r=newMatrix->fillMatrix(mat);
-    if(r==0){
-        delete newMatrix;
-        return mat;
-    }else if(r==1){
+    newMatrix->fillMatrix(mat);
     newMatrix-> next = mat;
-    }
     return newMatrix;
 }
 matrix::~matrix(){
-    if(next!=NULL){
-    delete next;
-    next=NULL;
+    if( next != NULL )
+    {
+        delete next;
+        next = NULL;
     }
+}
+
+matrix* matrix::addMatrixes (matrix* mat1, matrix* mat2){
+    while(mat1!=NULL){
+        mat1->value= *mat1+mat2;
+        mat1=mat1->next;
+    }
+    return mat1;
+}
+matrix* matrix::substrMatrixes (matrix* mat1, matrix* mat2){
+    while(mat1!=NULL){
+        mat1->value= *mat1-mat2;
+        mat1=mat1->next;
+    }
+    return mat1;
+}
+
+void matrix::initialize(){
+    next = NULL;
 }
