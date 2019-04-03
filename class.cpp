@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "class.hpp"
 
+matrix* matrix::operator*(matrix* mat){
+
+}
+
 int matrix::operator+(matrix* mat){
     matrix* help = mat;
     while(help!=NULL){
@@ -23,6 +27,27 @@ int matrix::operator-(matrix* mat){
      return value;
 }
 
+matrix* matrix::operator+=(matrix* mat){
+    matrix* help = mat;
+    while (help!=NULL){
+        if( x == help->x && y == help->y){
+            value = value + help->value;
+        }
+        help=help->next;
+    }
+    return help;
+}
+
+matrix* matrix::operator-=(matrix* mat){
+    matrix* help = mat;
+    while (help!=NULL){
+        if( x == help->x && y == help->y){
+            value = value - help->value;
+        }
+        help=help->next;
+    }
+    return help;
+}
 void matrix::fillMatrix(matrix* mat){
     cout << "X:" << endl;
     cin >> y;
@@ -79,21 +104,37 @@ matrix::~matrix(){
     }
 }
 
-matrix* matrix::addMatrixes (matrix* mat1, matrix* mat2){
+void matrix::addMatrixes (matrix* mat1, matrix* mat2){
     while(mat1!=NULL){
         mat1->value= *mat1+mat2;
         mat1=mat1->next;
     }
-    return mat1;
 }
-matrix* matrix::substrMatrixes (matrix* mat1, matrix* mat2){
+void matrix::substrMatrixes (matrix* mat1, matrix* mat2){
     while(mat1!=NULL){
         mat1->value= *mat1-mat2;
         mat1=mat1->next;
     }
-    return mat1;
 }
-
+void matrix::plusequals(matrix* mat1, matrix* mat2){
+    while(mat1!=NULL){
+        *mat1+=mat2;
+        mat1=mat1->next;
+    }
+}
+void matrix::minuseqauls (matrix* mat1, matrix* mat2){
+    while(mat1!=NULL){
+        *mat1-=mat2;
+        mat1=mat1->next;
+    }
+}
 void matrix::initialize(){
     next = NULL;
+}
+
+matrix* matrix::multi(matrix* mat1, matrix* mat2){
+    if(mat1->setSizeOfMatrix(mat1) != mat2->setSizeOfMatrix(mat2)){
+        cout << "You can't multiply matrices that differ in size" << endl;
+    }
+    return mat1;
 }

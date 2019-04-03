@@ -19,7 +19,7 @@ matt->initialize();
         cout <<"Matrix 2:"<<endl;
         matt->display(matt);
         cout << endl;
-        cout << "1.Add number to the first matrix\n2.Display\n3.Add number to the second matrix\n4.Display2\n5.exit"<<endl;
+        cout << "1.Add number to the first matrix\n2.Display\n3.Add number to the second matrix\n4.Display2\n5.exit\n6.Test +\n7.Test +=\n8.Test -\n9.Test -="<<endl;
     cin >> a;
     switch(a){
     case '1':
@@ -43,9 +43,16 @@ matt->initialize();
         clearScreen();
         break;
     case '7':
-        mat->substrMatrixes(mat, matt);
         clearScreen();
+        mat->plusequals(mat, matt);
         break;
+    case '8':
+        clearScreen();
+        mat->substrMatrixes(mat, matt);
+        break;
+    case '9':
+        clearScreen();
+        mat->
     default:
         break;
         }
