@@ -1,0 +1,16 @@
+CC = g++
+
+main.out: main.o class.o function.o
+	$(CC) -O3 main.o class.o function.o  -o $@.out
+
+debug: main.o  class.o function.o
+	$(CC) -g -Wall -pedantic main.o  class.o function.o -o $@.out
+
+main.o: main.cpp class.h function.h
+	$(CC) -c main.cpp class.h function.h
+
+class.o: class.cpp ComplexNum.h 
+	$(CC) -c class.cpp class.h 
+
+function.o: function.cpp function.h 
+	$(CC) -c function.cpp function.h
